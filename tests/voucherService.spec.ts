@@ -23,7 +23,7 @@ describe("create voucher unit test", () => {
    
     expect(result).toEqual(undefined);
     expect(voucherRepository.createVoucher).toBeCalledTimes(1);
-
+    
   });
 
 });
