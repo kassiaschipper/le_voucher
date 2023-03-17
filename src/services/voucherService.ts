@@ -27,9 +27,9 @@ async function applyVoucher(code: string, amount: number) {
     throw conflictError("Voucher does not exist.");
   }
 
-  let finalAmount = amount;
+  let finalAmount = amount;  
   if (isAmountValidForDiscount(amount) && !voucher.used) {
-    await changeVoucherToUsed(code);
+     await changeVoucherToUsed(code);
     finalAmount = applyDiscount(amount, voucher.discount);
   }
 
@@ -42,7 +42,7 @@ async function applyVoucher(code: string, amount: number) {
 }
 
 async function changeVoucherToUsed(code: string) {
-  return await voucherRepository.useVoucher(code);
+   return await voucherRepository.useVoucher(code);
 }
 
 function isAmountValidForDiscount(amount: number) {
