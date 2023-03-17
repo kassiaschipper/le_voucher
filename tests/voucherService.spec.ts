@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import voucherService from "../src/services/voucherService";
 import voucherRepository from "../src/repositories/voucherRepository";
-import { Voucher } from "@prisma/client";
 import { conflictError } from "../src/utils/errorUtils";
 
 beforeAll(() => {
@@ -15,7 +14,7 @@ describe("create voucher unit test", () => {
 
   it("should create an voucher", async () => {
 
-    const fakeVoucher: Voucher = {
+    const fakeVoucher = {
       id: 1,
       code: "a1b2c3d4",
       discount: 10,
@@ -88,7 +87,7 @@ describe("apply voucher unit test", () => {
 
   it("should apply an voucher", async () => {
 
-    const fakeVoucher: Voucher = {
+    const fakeVoucher = {
       id: 1,
       code: "a1b2c3d4",
       discount: 10,
