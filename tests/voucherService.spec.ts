@@ -8,7 +8,12 @@ describe("create voucher unit test", () => {
 
   it("should create an voucher", async () => {
 
-    const fakeVoucher: Voucher = { id: 1, code: "a1b2c3d4", discount: 10, used: false };
+    const fakeVoucher: Voucher = { 
+      id: 1, 
+      code: "a1b2c3d4", 
+      discount: 10, 
+      used: false 
+    };
 
     jest
       .spyOn(voucherRepository, "getVoucherByCode")
@@ -46,4 +51,50 @@ describe("create voucher unit test", () => {
 
     }).rejects.toBeInstanceOf(Error);
   });
+});
+
+describe("apply voucher unit test", () => {
+  
+  // it("should apply an voucher", async () => {
+   
+  //   const fakeVoucher: Voucher = { 
+  //     id: 1, 
+  //     code: "a1b2c3d4", 
+  //     discount: 10, 
+  //     used: false 
+  //   };
+
+  //   jest
+  //   .spyOn(voucherRepository, "getVoucherByCode")
+  //   .mockImplementationOnce((): any => {
+  //     return fakeVoucher;
+  //   });
+
+  //   const fakeAmount = 100;
+
+
+
+  // });
+  it("shoulb not be able to apply discount to values below 100", async () => {
+    const fakeVoucher = {
+      id: 1,
+      code: "a1b2c3d4",
+      discount: 10,
+      used: false
+    };
+
+    jest.spyOn(voucherRepository, "getVoucherByCode").mockImplementationOnce((): any => {
+      return [fakeVoucher];
+    });
+
+    // jest.spyOn(voucherRepository, "useVoucher").mockImplementationOnce(():any => { });
+
+    const fakeAmount = 50;
+    const fakeOrder = await voucherService.applyVoucher(fakeVoucher.code, fakeAmount);
+    expect(fakeOrder.amount).toBe(fakeAmount);
+    expect(fakeOrder.discount).toBe(10);
+    expect(fakeOrder.finalAmount).toBe(fakeAmount);
+    expect(fakeOrder.applied).toBe(false);
+
+  })
 });
